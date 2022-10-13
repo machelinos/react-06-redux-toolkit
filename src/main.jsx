@@ -8,7 +8,7 @@ import './styles.css'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={ store}>
-      <ReduxToolkit />
+      <ReduxToolkit incrementValue={2} />
     </Provider>
   </React.StrictMode>
 )

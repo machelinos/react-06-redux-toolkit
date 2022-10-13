@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
-import { increment } from "./store/slices/counter";
+import { decrement, increment, incrementBy } from "./store/slices/counter";
 
-export const ReduxToolkit = () => {
+export const ReduxToolkit = ({incrementValue}) => {
 
   const {counter} = useSelector(state=>state.counter);
   const dispatch = useDispatch();
@@ -18,6 +18,20 @@ export const ReduxToolkit = () => {
       >
         +1
       </button>
+
+      <button
+        onClick={()=>dispatch(decrement())}
+      >
+        -1
+      </button>
+
+      <button
+        onClick={()=>dispatch(incrementBy(incrementValue))}
+      >
+        +{incrementValue}
+      </button>
+
+
 
     </>
   )
