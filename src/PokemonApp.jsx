@@ -1,24 +1,54 @@
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getPokemons } from "./store/slices/pokemon";
 
 export const PokemonApp = () => {
   const dispatch = useDispatch();
 
+  const {pokemons, page, isLoading} = useSelector(state=>state.pokemon)
+
   useEffect(()=>{
     dispatch(getPokemons());
-  }, [])
+  }, []);
+
+  const handleNext = ()=>{
+    dispatch(getPokemons(page))
+  }
+
+  const handleBack = ()=>{
+    dispatch(getPokemons(page-2));
+  }
 
   return (
     <>
         <h1>Pokemon App</h1>
         <hr />
 
-        <ul>
-            <li>Hola 1</li>
-            <li>Hola 2</li>
-            <li>Hola 3</li>
-        </ul>
+        {
+          isLoading ?
+            (<p>Loading...</p>) :
+            (
+              <ul>
+              {
+                pokemons.map(pokemon=>(
+                  <li key={pokemon.name}>{pokemon.name}</li>
+                ))
+              }
+              </ul>
+  
+            )
+        }
+
+        <button
+          onClick={handleBack}
+          disabled={page<=1}
+        >
+          Back
+        </button>
+
+        <button
+          onClick={handleNext}
+        >Next</button>
     </>
   )
 }
